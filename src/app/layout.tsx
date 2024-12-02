@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+import { cookies } from "next/headers"
+
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { SideNav } from "@/components/side-nav";
+
+const cookieStore = await cookies()
+const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
 
 const geistSans = localFont({
   src: "../assets/fonts/GeistVF.woff",
@@ -33,15 +38,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="grid min-h-screen grid-rows-[auto_1fr_auto]">
-            <NavBar />
-            <div className="mx-auto grid w-full max-w-7xl grid-rows-1 px-4 sm:px-6 lg:px-8 mt-4 justify-center items-center">
+          <SidebarProvider defaultOpen={defaultOpen}>
+            <SideNav />
+            <SidebarInset>
               {children}
-            </div>
-            <Footer />
-          </main>
+            </SidebarInset>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }
