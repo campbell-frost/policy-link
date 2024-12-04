@@ -1,23 +1,36 @@
 "use client";
-
 import { listPolicies } from "@/data/listPolicies";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { PolicyModel } from "../../../database.types";
 
 export default function Dashboard() {
-  const [policies, setPolicies] = useState<PolicyModel[]>()
-  useEffect(() => {
-    (async () => {
-      setPolicies(await listPolicies());
-    })()
-  }, [])
   return (
-    <div className="flex justify-center items-center min-h-full">
-      {policies?.map((v,i) => (
-        <pre key={i}>
-          {JSON.stringify(v, null, 2)}
-        </pre>
-      ))}
+    <div className="flex justify-between items-center p-4">
+      <PolicyList />
+    </div>
+  );
+}
+
+function PolicyList() {
+  const [policies, setPolicies] = useState<PolicyModel[]>([]);
+  
+  useLayoutEffect(() => {
+    (async () => {
+      setPolicies(await listPolicies() || []);
+    })();
+  }, []);
+
+  return (
+    <div className="flex flex-col">
+      {policies.length > 0 ? (
+        policies.map((value, i) => (
+          <pre key={i}>
+            {JSON.stringify(value, null, 2)}
+          </pre>
+        ))
+      ) : (
+        <p>No policies found</p>
+      )}
     </div>
   );
 }
