@@ -10,7 +10,7 @@ export default function Dashboard() {
     (async () => {
       setPolicies(await listPolicies());
     })()
-  })
+  }, [])
   return (
     <div className="flex justify-center items-center min-h-full">
       {policies?.map((v,i) => (
