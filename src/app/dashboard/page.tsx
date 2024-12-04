@@ -22,7 +22,7 @@ function PolicyList() {
 
   return (
     <div className="flex flex-col">
-      {policies.length > 0 ? (
+      {policies ? (
         policies.map((value, i) => (
           <pre key={i}>
             {JSON.stringify(value, null, 2)}
