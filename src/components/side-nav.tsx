@@ -42,7 +42,7 @@ export function SideNav() {
   ]
 
   return (
-    <Sidebar variant="inset">
+    <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
