@@ -1,20 +1,21 @@
 "use client";
+
+import { useEffect, useState } from "react";
+
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter,
-  DialogClose
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { PolicyModel } from "../../../database.types";
+import { PolicyModel, RuleModel } from "../../../database.types";
 import { listPolicies } from "@/data/listPolicies";
-
 
 export default function Dashboard() {
   return (
@@ -26,6 +27,7 @@ export default function Dashboard() {
 }
 
 export function CreatePolicy() {
+  const [rules, setRules] = useState<RuleModel[]>([]);
   return (
     <div className="m-2 p-4 rounded-lg bg-card">
       <Dialog>
@@ -50,10 +52,18 @@ export function CreatePolicy() {
               <Input placeholder="hi" />
             </div>
           </div>
-          <Input placeholder="hi" />
+          <div className="flex flex-col">
+            <div className="flex justify-between">
+              <label>Rules</label>
+              <button></button>
+            </div>
+            {rules.map((_, i) => (
+              <Input key={i} placeholder="Insert a rule" />
+            ))}
+          </div>
           <DialogFooter className="sm:justify-between">
             <DialogClose asChild>
-              <Button type="button" variant="secondary">2343
+              <Button type="button" variant="secondary">
                 Close
               </Button>
             </DialogClose>
@@ -66,7 +76,7 @@ export function CreatePolicy() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
 
 function PolicyList() {
@@ -74,7 +84,7 @@ function PolicyList() {
 
   useEffect(() => {
     (async () => {
-      setPolicies(await listPolicies() || []);
+      setPolicies((await listPolicies()) || []);
     })();
   }, []);
 
@@ -82,9 +92,7 @@ function PolicyList() {
     <div className="flex flex-col m-2 p-4 rounded-lg bg-card">
       {policies.length > 0 ? (
         policies.map((value, i) => (
-          <pre key={i}>
-            {JSON.stringify(value, null, 2)}
-          </pre>
+          <pre key={i}>{JSON.stringify(value, null, 2)}</pre>
         ))
       ) : (
         <p>No policies found</p>
