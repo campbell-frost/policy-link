@@ -51,7 +51,7 @@ export function SideNav({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <LinkIcon />
               <Link href="/">
                 <div className="flex flex-col">
-                  <h1 className="text-lg">Policy-Link Solutions</h1>
+                  <h1 className="text-lg truncate">Policy-Link Solutions</h1>
                 </div>
               </Link>
             </SidebarMenuButton>

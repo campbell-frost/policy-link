@@ -36,18 +36,24 @@ export function CreatePolicy() {
           <DialogHeader>
             <DialogTitle>Create Policy</DialogTitle>
             <DialogDescription>
-              Anyone who has this link will be able to view this.
+              This will add a new policy to the database
             </DialogDescription>
           </DialogHeader>
-          
-            <div className="flex items-center space-x-2">
-              <Input placeholder="hi" />
+
+          <div className="flex items-center space-x-2">
+            <div className="flex flex-col">
+              <label>Name</label>
               <Input placeholder="hi" />
             </div>
-            <Input placeholder="hi" />
+            <div className="flex flex-col">
+              <label>Purpose</label>
+              <Input placeholder="hi" />
+            </div>
+          </div>
+          <Input placeholder="hi" />
           <DialogFooter className="sm:justify-between">
             <DialogClose asChild>
-              <Button type="button" variant="secondary">
+              <Button type="button" variant="secondary">2343
                 Close
               </Button>
             </DialogClose>
