@@ -13,42 +13,48 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 
-import { Home, LayoutDashboardIcon, Upload } from "lucide-react";
+import { Home, LayoutDashboardIcon, LinkIcon, Upload } from "lucide-react";
 import Link from "next/link";
 import { ToggleTheme } from "./toggle-theme";
+import React from "react";
 
-export function SideNav() {
-  type MenuItem = {
-    label: string;
-    href: string;
-    icon: React.ReactNode;
+type MenuItem = {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+}
+
+const menuItems: MenuItem[] = [
+  {
+    label: "Home",
+    href: "/",
+    icon: <Home />,
+  },
+  {
+    label: "Upload Policy",
+    href: "/upload-policy",
+    icon: <Upload />,
+  },
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: <LayoutDashboardIcon />
   }
-  const menuItems: MenuItem[] = [
-    {
-      label: "Home",
-      href: "/",
-      icon: <Home />,
-    },
-    {
-      label: "Upload Policy",
-      href: "/upload-policy",
-      icon: <Upload />,
-    },
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-      icon: <LayoutDashboardIcon />
-    }
-  ]
-
+]
+export function SideNav({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar>
+    <Sidebar variant="inset" collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="p-2 flex justify-start items-center rounded-lg gap-x-2">
-              <h1 className="text-3xl font-medium text-primary">Policy Link Solutions</h1>
-            </div>
+            <SidebarMenuButton className="hover:bg-sidebar-background active:bg-sidebar-background">
+              <LinkIcon />
+              <Link href="/">
+                <div className="flex flex-col">
+                  <h1 className="text-lg">Policy-Link Solutions</h1>
+                </div>
+              </Link>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
