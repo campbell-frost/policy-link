@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { PolicyModel } from "../../../database.types";
 import { listPolicies } from "@/data/listPolicies";
-import { createPolicy, Status } from "@/data/actions";
+import { createPolicy } from "@/data/actions";
 
 export default function Dashboard() {
   return (
@@ -27,7 +27,7 @@ export default function Dashboard() {
 }
 
 export function CreatePolicy() {
-  const [state, formAction, isPending] = useActionState(createPolicy, null);
+  const [error, formAction, isPending] = useActionState(createPolicy, null);
 
   return (
     <div className="m-2 p-4 rounded-lg bg-card">
@@ -43,19 +43,19 @@ export function CreatePolicy() {
             </DialogDescription>
           </DialogHeader>
           <form action={formAction}>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 my-3">
               <div className="flex flex-col">
                 <label>Name</label>
                 <Input name="name" placeholder="Policy Name" />
               </div>
               <div className="flex flex-col">
                 <label>Count</label>
-                <Input name="count" placeholder="Policy Count" type="number" />
+                <Input name="count" placeholder="Policy Count" type="number" inputMode='numeric' pattern='\d*' />
               </div>
             </div>
-            {state?.status === Status.error &&
-              <h1>An error occured: {state.message}</h1>
-            }
+            {error?.message && (
+              <div className="text-red-500">{error.message}</div>
+            )}
             <DialogFooter className="sm:justify-between">
               <DialogClose asChild>
                 <Button type="button" variant="secondary">

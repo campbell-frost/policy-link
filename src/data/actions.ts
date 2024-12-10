@@ -1,24 +1,17 @@
 "use server";
-
 import { TestDataModel } from "../../database.types";
 import { supabase } from "./client";
 
-export enum Status {
-  success,
-  error,
-}
 
 export type CreatePolicyFormState = {
-  status: Status.success
-} | {
-  status: Status.error,
-  message: string,
+  message: string;
 } | null;
 
 export const createPolicy = async (
   _: CreatePolicyFormState,
   formData: FormData
 ): Promise<NonNullable<CreatePolicyFormState>> => {
+  console.log("creating policy");
 
   const data: TestDataModel = {
     id: crypto.randomUUID(),
@@ -27,25 +20,23 @@ export const createPolicy = async (
     created_at: new Date().toLocaleDateString(),
   };
 
+  console.log('data', data);
   try {
     const { error } = await supabase.from("test_data").insert(data);
 
     if (error) {
       return {
-        status: Status.error,
         message: error.message
       };
     }
 
-    return { 
-      status: Status.success,
-     };
+    return { message: "Policy created successfully" };
   } catch (error) {
     return {
-      status: Status.error,
       message: error instanceof Error
         ? error.message
-        : `An unknown error occurred: ${error}`
+        : "An unknown error occurred"
+      
     };
   }
 };
