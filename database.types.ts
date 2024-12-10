@@ -1,5 +1,6 @@
 export type PolicyModel = Tables<'policy'>;
 export type RuleModel = Tables<'rule'>;
+export type TestDataModel = Tables<'test_data'>;
 
 export type Json =
   | string
@@ -59,6 +60,27 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string
+        }
+        Relationships: []
+      }
+      test_data: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          count: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          count: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          count?: number
         }
         Relationships: []
       }

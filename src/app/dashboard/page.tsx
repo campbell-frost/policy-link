@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
+import { useState, useEffect, useActionState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +13,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { PolicyModel, RuleModel } from "../../../database.types";
+import { PolicyModel } from "../../../database.types";
 import { listPolicies } from "@/data/listPolicies";
+import { createPolicy, Status } from "@/data/actions";
 
 export default function Dashboard() {
   return (
@@ -27,7 +27,8 @@ export default function Dashboard() {
 }
 
 export function CreatePolicy() {
-  const [rules, setRules] = useState<RuleModel[]>([]);
+  const [state, formAction, isPending] = useActionState(createPolicy, null);
+
   return (
     <div className="m-2 p-4 rounded-lg bg-card">
       <Dialog>
@@ -41,38 +42,35 @@ export function CreatePolicy() {
               This will add a new policy to the database
             </DialogDescription>
           </DialogHeader>
-
-          <div className="flex items-center space-x-2">
-            <div className="flex flex-col">
-              <label>Name</label>
-              <Input placeholder="hi" />
+          <form action={formAction}>
+            <div className="flex items-center space-x-2">
+              <div className="flex flex-col">
+                <label>Name</label>
+                <Input name="name" placeholder="Policy Name" />
+              </div>
+              <div className="flex flex-col">
+                <label>Count</label>
+                <Input name="count" placeholder="Policy Count" type="number" />
+              </div>
             </div>
-            <div className="flex flex-col">
-              <label>Purpose</label>
-              <Input placeholder="hi" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex justify-between">
-              <label>Rules</label>
-              <button></button>
-            </div>
-            {rules.map((_, i) => (
-              <Input key={i} placeholder="Insert a rule" />
-            ))}
-          </div>
-          <DialogFooter className="sm:justify-between">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Close
+            {state?.status === Status.error &&
+              <h1>An error occured: {state.message}</h1>
+            }
+            <DialogFooter className="sm:justify-between">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+              <Button
+                type="submit"
+                variant="default"
+                disabled={isPending}
+              >
+                {isPending ? "Submitting..." : "Submit"}
               </Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button type="button" variant="default">
-                Submit
-              </Button>
-            </DialogClose>
-          </DialogFooter>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>
