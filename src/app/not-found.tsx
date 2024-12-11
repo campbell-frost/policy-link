@@ -15,7 +15,7 @@ export default function NotFound() {
         </CardHeader>
         <CardContent>
           <p className="text-center text-muted-foreground">
-            Oops! The page you're looking for doesn't exist.
+            Oops! The page you&apos;re looking for doesn&apos;t exist.
           </p>
         </CardContent>
         <CardFooter className="flex justify-center">

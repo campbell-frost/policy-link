@@ -16,7 +16,7 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 
-import { Activity, ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, Shield, TriangleAlert, Upload } from "lucide-react";
+import { Activity, ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, Shield, TriangleAlert, } from "lucide-react";
 import Link from "next/link";
 import { ToggleTheme } from "./toggle-theme";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";

@@ -18,7 +18,7 @@ type AuthContextTypye = {
 const AuthContext = createContext<AuthContextTypye | null>(null);
 
 export function useAuth(): AuthContextTypye {
-  let context = useContext(AuthContext);
+  const context = useContext(AuthContext);
   if (context === null) {
     throw new Error('useUser must be used within a UserProvider');
   }
@@ -32,8 +32,8 @@ export function AuthProvider({
   children: ReactNode;
   userPromise: Promise<User | null>;
 }) {
-  let initialUser = use(userPromise);
-  let [user, setUser] = useState<User | null>(initialUser);
+  const initialUser = use(userPromise);
+  const [user, setUser] = useState<User | null>(initialUser);
 
   useEffect(() => {
     setUser(initialUser);
