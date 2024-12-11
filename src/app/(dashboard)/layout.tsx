@@ -75,12 +75,16 @@ function Header() {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="flex flex-col min-h-full">
+    <section>
       <SidebarProvider>
         <Sidenav />
         <SidebarInset>
-          <Header />
-          {children}
+          <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
+            <Header />
+            <div className="grid grid-rows-1">
+              {children}
+            </div>
+          </div>
         </SidebarInset>
       </SidebarProvider>
     </section>
