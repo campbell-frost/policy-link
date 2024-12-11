@@ -13,17 +13,17 @@ export default function HomePage() {
       <div className="flex gap-x-2">
         {auth.user
           ? (
-            <Button>
-              <Link href={"/dashboard"}>
+            <Link href={"/dashboard"}>
+              <Button>
                 Dashboard
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           ) : (
-            <Button>
-              <Link href={"/sign-in"}>
+            <Link href={"/sign-in"}>
+              <Button>
                 Sign In
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           )
         }
       </div>

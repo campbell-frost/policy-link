@@ -73,7 +73,7 @@ export function InviteTeamMember() {
           )}
           <Button
             type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white"
+            className="bg-blue-500 hover:bg-blue-600 text-white"
             disabled={isInvitePending || !isOwner}
           >
             {isInvitePending ? (
