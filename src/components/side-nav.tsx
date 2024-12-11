@@ -16,7 +16,6 @@ import {
 import { Home, LayoutDashboardIcon, LinkIcon, Upload } from "lucide-react";
 import Link from "next/link";
 import { ToggleTheme } from "./toggle-theme";
-import React from "react";
 
 type MenuItem = {
   label: string;
@@ -41,24 +40,24 @@ const menuItems: MenuItem[] = [
     icon: <LayoutDashboardIcon />
   }
 ]
-export function SideNav({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function Sidenav({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="hover:bg-sidebar-background active:bg-sidebar-background">
+            <SidebarMenuButton className="hover:bg-sidebar-background active:bg-sidebar-background my-1">
               <LinkIcon />
               <Link href="/">
                 <div className="flex flex-col">
-                  <h1 className="text-lg truncate">Policy-Link Solutions</h1>
+                  <h1 className="text-xl truncate">Policy-Link Solutions</h1>
                 </div>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarSeparator />
+      <SidebarSeparator className="mx-0" />
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Routes</SidebarGroupLabel>

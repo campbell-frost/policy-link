@@ -64,15 +64,11 @@
     --sidebar-ring: 60 30% 96%;
   }
 }
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
