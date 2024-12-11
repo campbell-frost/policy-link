@@ -10,22 +10,22 @@ import {
 import { use } from 'react';
 import { User } from '@/lib/db/schema';
 
-type UserContextType = {
+type AuthContextTypye = {
   user: User | null;
   setUser: (user: User | null) => void;
 };
 
-const UserContext = createContext<UserContextType | null>(null);
+const AuthContext = createContext<AuthContextTypye | null>(null);
 
-export function useUser(): UserContextType {
-  let context = useContext(UserContext);
+export function useAuth(): AuthContextTypye {
+  let context = useContext(AuthContext);
   if (context === null) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 }
 
-export function UserProvider({
+export function AuthProvider({
   children,
   userPromise,
 }: {
@@ -40,8 +40,8 @@ export function UserProvider({
   }, [initialUser]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   );
 }

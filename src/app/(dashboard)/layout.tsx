@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useUser } from '@/lib/auth';
+import { useAuth } from '@/lib/auth';
 import { signOut } from '@/app/(login)/actions';
 import { useRouter } from 'next/navigation';
 import { Sidenav } from '@/components/side-nav';
@@ -19,7 +19,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, setUser } = useUser();
+  const { user, setUser } = useAuth();
   const router = useRouter();
 
   async function handleSignOut() {

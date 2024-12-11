@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
-import { UserProvider } from '@/lib/auth';
+import { AuthProvider } from '@/lib/auth';
 import { getUser } from '@/lib/db/queries';
 import { ThemeProvider } from "next-themes";
 
@@ -30,11 +30,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh]">
-        <UserProvider userPromise={userPromise}>
+        <AuthProvider userPromise={userPromise}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
-        </UserProvider>
+        </AuthProvider>
       </body>
     </html>
   );

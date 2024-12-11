@@ -14,7 +14,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useActionState } from 'react';
 import { inviteTeamMember } from '@/app/(login)/actions';
-import { useUser } from '@/lib/auth';
+import { useAuth } from '@/lib/auth';
 
 type ActionState = {
   error?: string;
@@ -22,7 +22,7 @@ type ActionState = {
 };
 
 export function InviteTeamMember() {
-  const { user } = useUser();
+  const { user } = useAuth();
   const isOwner = user?.role === 'owner';
   const [inviteState, inviteAction, isInvitePending] = useActionState<
     ActionState,

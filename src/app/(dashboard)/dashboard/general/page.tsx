@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
-import { useUser } from '@/lib/auth';
+import { useAuth } from '@/lib/auth';
 import { updateAccount } from '@/app/(login)/actions';
 
 type ActionState = {
@@ -15,7 +15,7 @@ type ActionState = {
 };
 
 export default function GeneralPage() {
-  const { user } = useUser();
+  const { user } = useAuth();
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(updateAccount, { error: '', success: '' });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

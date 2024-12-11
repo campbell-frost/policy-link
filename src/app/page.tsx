@@ -1,11 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/lib/auth";
+import { useAuth } from "@/lib/auth";
 import Link from "next/link";
 
 export default function HomePage() {
-  const auth = useUser();
+  const auth = useAuth();
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
