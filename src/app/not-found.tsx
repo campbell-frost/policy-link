@@ -1,27 +1,31 @@
-import Link from 'next/link';
-import { CircleIcon } from 'lucide-react';
+import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 
 export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-[100dvh]">
-      <div className="max-w-md space-y-8 p-4 text-center">
-        <div className="flex justify-center">
-          <CircleIcon className="size-12 text-orange-500" />
-        </div>
-        <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
-          Page Not Found
-        </h1>
-        <p className="text-base text-gray-500">
-          The page you are looking for might have been removed, had its name
-          changed, or is temporarily unavailable.
-        </p>
-        <Link
-          href="/"
-          className="max-w-48 mx-auto flex justify-center py-2 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-        >
-          Back to Home
-        </Link>
-      </div>
+    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <div className="flex items-center justify-center space-x-4">
+            <h1 className="text-4xl font-bold">404</h1>
+            <div className="h-8 w-px bg-border" aria-hidden="true" />
+            <h2 className="text-2xl font-semibold">Page Not Found</h2>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center text-muted-foreground">
+            Oops! The page you're looking for doesn't exist.
+          </p>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <Button asChild>
+            <Link href="/">
+              Return Home
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
-  );
+  )
 }
