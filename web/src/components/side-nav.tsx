@@ -60,8 +60,13 @@ const menuItems: MenuItem[] = [
         href: "/dashboard/security",
         icon: <Shield />
       },
+      {
+        href: "/dashboard/goApi",
+        label: "Go API",
+        icon: <GlassWater />,
+      },
     ]
-  }
+  }, 
 ];
 
 export function Sidenav({ ...props }: React.ComponentProps<typeof Sidebar>) {
