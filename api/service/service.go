@@ -2,7 +2,6 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -10,10 +9,15 @@ import (
 
 func RpcHandler[Request any, Response any](f func(Request) (Response, error)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Request received")
+		if r.Method != http.MethodPost {
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			log.Println("Invalid HTTP method:", r.Method)
+			return
+		}
+
 		requestBody, err := io.ReadAll(r.Body)
 		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusUnprocessableEntity)
 			log.Println("Error reading request body:", err)
 			return
 		}
@@ -21,7 +25,7 @@ func RpcHandler[Request any, Response any](f func(Request) (Response, error)) ht
 		var request Request
 		err = json.Unmarshal(requestBody, &request)
 		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusUnprocessableEntity)
 			log.Println("Error unmarshaling request body:", err)
 			return
 		}
