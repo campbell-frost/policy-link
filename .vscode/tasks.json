@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "docker-stop",
+      "type": "shell",
+      "command": "docker stop policy-link",
+      "problemMatcher": []
+    }
+  ]
+}

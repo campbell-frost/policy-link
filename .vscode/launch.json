@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Go Server",
+      "name": "Debug Go API",
       "type": "go",
       "request": "launch",
       "mode": "auto",
@@ -11,17 +11,29 @@
       "output": "${workspaceFolder}/.debug/debug_bin"
     },
     {
-      "name": "Run Next.js Dev",
+      "name": "Run Next.js Web Server",
       "type": "node-terminal",
       "request": "launch",
       "cwd": "${workspaceFolder}/web",
       "command": "pnpm dev"
+    },
+    {
+      "name": "Start Postgres Docker Container",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "docker start policy-link",
+      "postDebugTask": "docker-stop"
     }
+    
   ],
   "compounds": [
     {
       "name": "Debug Backend + Run Frontend",
-      "configurations": ["Debug Go Server", "Run Next.js Dev"]
+      "configurations": [
+        "Debug Go API",
+        "Run Next.js Web Server",
+        "Start Postgres Docker Container"
+      ]
     }
-  ]
+  ],
 }
