@@ -23,8 +23,14 @@
       "request": "launch",
       "command": "docker start policy-link",
       "postDebugTask": "docker-stop"
-    }
-    
+    },
+    {
+      "name": "Launch Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "url": "https://localhost:3000",
+      "webRoot": "${workspaceFolder}/client"
+    },
   ],
   "compounds": [
     {
@@ -32,7 +38,7 @@
       "configurations": [
         "Debug Go API",
         "Run Next.js Web Server",
-        "Start Postgres Docker Container"
+        "Start Postgres Docker Container",
       ]
     }
   ],
