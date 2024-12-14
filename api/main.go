@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/campbell-frost/policy-link-solutions/database"
-	"github.com/campbell-frost/policy-link-solutions/service/policy"
 	"github.com/campbell-frost/policy-link-solutions/service/user"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
@@ -36,8 +35,7 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
-	policy.Register(r)
 	user.Register(r)
-	fmt.Println("Server running on port 1738.  I'm like hey what's up hello.")
-	http.ListenAndServe(":1738", r)
+	fmt.Println("Server running on port 1739.  I'm like hey what's up hello.")
+	log.Fatal(http.ListenAndServe(":1739", r))
 }

@@ -7,8 +7,9 @@ import (
 	"github.com/campbell-frost/policy-link-solutions/model"
 )
 
-func getUser(id int) (model.User, error) {
+func getUser(x string) (model.User, error) {
 	db, err := database.Connect()
+	fmt.Println("string is ", x)
 	if err != nil {
 		return model.User{}, err
 	}
