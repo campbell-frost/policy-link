@@ -36,6 +36,6 @@ func main() {
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
 	user.Register(r)
-	fmt.Println("Server running on port 1739.  I'm like hey what's up hello.")
-	log.Fatal(http.ListenAndServe(":1739", r))
+	fmt.Println("Server running on port 1738.  I'm like hey what's up hello.")
+	log.Fatal(http.ListenAndServe(":1738", r))
 }

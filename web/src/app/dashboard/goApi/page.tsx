@@ -33,7 +33,7 @@ export default function Page() {
 
   const listUsers = async () => {
     try {
-      const response = await fetch("http://localhost:1739/listUsers", {
+      const response = await fetch("http://localhost:1738/listUsers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

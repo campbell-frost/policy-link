@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Go Server",
+      "name": "Debug Go Server",
       "type": "go",
       "request": "launch",
       "mode": "auto",
@@ -11,19 +11,17 @@
       "output": "${workspaceFolder}/.debug/debug_bin"
     },
     {
-      "name": "Launch Next.js",
-      "type": "node",
+      "name": "Run Next.js Dev",
+      "type": "node-terminal",
       "request": "launch",
       "cwd": "${workspaceFolder}/web",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev"],
-      "console": "integratedTerminal"
+      "command": "pnpm dev"
     }
   ],
   "compounds": [
     {
-      "name": "Full Stack: Backend + Frontend",
-      "configurations": ["Launch Go Server", "Launch Next.js"]
+      "name": "Debug Backend + Run Frontend",
+      "configurations": ["Debug Go Server", "Run Next.js Dev"]
     }
   ]
 }

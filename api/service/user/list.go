@@ -11,6 +11,6 @@ func listUsers(name string) ([]model.User, error) {
 		return nil, err
 	}
 	var users []model.User
-	result := db.Where("email LIKE ?", "%"+name+"%").Find(&users)
+	result := db.Where("name LIKE ?", "%"+name+"%").Find(&users)
 	return users, result.Error
 }
