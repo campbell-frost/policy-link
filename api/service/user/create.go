@@ -5,15 +5,13 @@ import (
 	"github.com/campbell-frost/policy-link-solutions/model"
 )
 
-func getUser(id string) (model.User, error) {
+func createUser(user model.User) (struct{}, error) {
 	db, err := database.Connect()
 	if err != nil {
-		return model.User{}, err
+		return struct{}{}, err
 	}
 
-	var user model.User
+	db.Create(&user)
 
-	_ = db.First(&user, id)
-
-	return user, err
+	return struct{}{}, err
 }
