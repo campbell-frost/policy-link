@@ -1,131 +1,65 @@
 "use client"
+import { User } from "@/lib/types";
+import { useApiService } from "@/lib/apiService";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
-
-type User = {
-  ID: string;
-  Name: string;
-  Email: string;
-} | null;
-
-enum Status {
-  Success = "SUCCESS",
-  Error = "ERROR",
-  Loading = "LOADING",
-};
-
-type Response<T> = {
-  status: Status.Success;
-  result: T;
-} | {
-  status: Status.Error;
-  message: string;
-} | {
-  status: Status.Loading;
-};
-
-type GetUserResponse = Response<User>;
-type ListUserResponse = Response<User[]>;
-
-const baseUrl = "http://localhost:1738/";
-const uuid = crypto.randomUUID();
-
-const payload: User = {
-  ID: uuid,
-  Name: "Campbell Frost",
-  Email: "campbellsfrost@gmail.com"
-};
+import { Button } from "@/components/ui/button";
 
 export default function Page() {
-  const [user, setUser] = useState<GetUserResponse>({ status: Status.Loading });
-  const [users, setUsers] = useState<ListUserResponse>({ status: Status.Loading });
+  const [user, fetchUser] = useApiService<User>();
+  const [users, fetchUsers] = useApiService<User[]>();
+  const [uuid, setUuid] = useState<string>("");
 
-  const getUser = async () => {
-    try {
-      const response = await fetch(`${baseUrl}getUser`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify("41b7146a-0f45-422d-a9b6-91fadeb0b7ec"),
-      }
-      );
-      const data: User = await response.json();
-      setUser({ status: Status.Success, result: data });
-    } catch (error: any) {
-      setUser({ status: Status.Error, message: error });
-    }
-  };
 
-  const listUsers = async () => {
-    try {
-      const response = await fetch(`${baseUrl}listUsers`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify("Campbell Frost"),
-      }
-      );
-      const data: User[] = await response.json();
-      setUsers({ status: Status.Success, result: data });
-    } catch (error: any) {
-      setUsers({ status: Status.Error, message: error });
-    }
-  };
-
-  const createUser = async () => {
-    try {
-      const response = await fetch(`${baseUrl}createUser`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      }
-      );
-      const data = await response.json();
-      console.log(data);
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+  const getUser = () => fetchUser<string>({ endpoint: "getUser", body: uuid });
+  const getUsers = () => fetchUsers({ endpoint: "listUsers" });
 
   return (
-    <div className="flex flex-col items-center" suppressHydrationWarning>
-      <h1 className="text-center text-4xl font-semibold mt-4">Go API</h1>
-      <div>
-        <div className="flex flex-col mt-3">
-          <h1>baseUrl: {baseUrl}</h1>
-          <h1>payload:</h1>
-          <pre>{JSON.stringify(payload)}</pre>
-        </div>
-        <div className="flex gap-x-2 mt-4">
-          <button className="px-4 py-2 text-white bg-blue-500 rounded-md" onClick={getUser}>
-            Get user
-          </button>
-          <button className=" px-4 py-2 text-white bg-blue-500 rounded-md" onClick={listUsers}>
-            List users
-          </button>
-          <button className="px-4 py-2 text-white bg-blue-500 rounded-md" onClick={createUser}>
-            Create User
-          </button>
-        </div>
-        <div className="grid grid-cols-2">
-          <div>
-            {user && (
-              <div className="mt-4">
-                <pre>{JSON.stringify(user, null, 2)}</pre>
-              </div>
-            )}
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold text-center mb-8">Go API Dashboard</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-card rounded-xl shadow-md p-6 w-96">
+          <h2 className="text-xl font-semibold ">Search For User</h2>
+          <h5>fc58c373-64b7-489d-a6c4-41b9195a0cb3</h5>
+          <div className="flex my-3">
+            <Input type="text" onChange={(e) => setUuid(e.target.value)}></Input>
+            <Button
+              className="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              onClick={getUser}>Search</Button>
           </div>
-          <div>
-            {users.status === Status.Success &&
-              users.result.map((user, i) => (
-                <div key={i} className="mt-4">
-                  <pre>{JSON.stringify(user, null, 2)}</pre>
+          {user.error && <p className="text-red-500 p-3 bg-muted rounded-lg">{user.errorMessage}</p>}
+          {user.pending && <p className="text-gray-500">Loading...</p>}
+          {user.data && (
+            <div className="space-y-2">
+              <div className="p-3 bg-muted rounded-lg">
+                <p className="font-medium">{user.data.name}</p>
+                <p className="text-gray-600">{user.data.email}</p>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="bg-card rounded-xl shadow-md p-6 w-96">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold">Users List</h2>
+            <button
+              className="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              onClick={getUsers}
+            >
+              Get Users
+            </button>
+          </div>
+          {users.error && <p className="text-red-500 p-3 bg-muted rounded-lg">{users.errorMessage}</p>}
+          {users.pending && <p className="text-gray-500">Loading...</p>}
+          {users.data && (
+            <div className="space-y-3">
+              {users.data.map((user, i) => (
+                <div key={i} className="p-3 bg-muted rounded-lg">
+                  <p className="font-medium">{user?.name}</p>
+                  <p className="text-gray-600">{user?.email}</p>
                 </div>
               ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

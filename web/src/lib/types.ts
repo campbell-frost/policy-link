@@ -10,4 +10,10 @@ export type Policy = {
   Equipment: string;
   Addendums: string;
   Active: boolean;
-}
+} | null;
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+} | null;

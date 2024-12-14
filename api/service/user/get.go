@@ -13,7 +13,7 @@ func getUser(id string) (model.User, error) {
 
 	var user model.User
 
-	_ = db.First(&user, id)
+	_ = db.First(&user, "id = ?", id)
 
 	return user, err
 }
