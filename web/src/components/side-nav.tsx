@@ -16,7 +16,7 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 
-import { Activity, ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, Shield, TriangleAlert, } from "lucide-react";
+import { ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, TriangleAlert, } from "lucide-react";
 import Link from "next/link";
 import { ToggleTheme } from "./toggle-theme";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
@@ -46,27 +46,12 @@ const menuItems: MenuItem[] = [
     icon: <LayoutDashboardIcon />,
     children: [
       {
-        label: "Activity",
-        href: "/dashboard/activity",
-        icon: <Activity />
-      },
-      {
-        label: "General",
-        href: "/dashboard/general",
-        icon: <GlassWater />
-      },
-      {
-        label: "Security",
-        href: "/dashboard/security",
-        icon: <Shield />
-      },
-      {
         href: "/dashboard/goApi",
         label: "Go API",
         icon: <GlassWater />,
       },
     ]
-  }, 
+  },
 ];
 
 export function Sidenav({ ...props }: React.ComponentProps<typeof Sidebar>) {

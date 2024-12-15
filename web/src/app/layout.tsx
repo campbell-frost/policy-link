@@ -1,8 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
-import { AuthProvider } from '@/lib/auth';
-import { getUser } from '@/lib/db/queries';
 import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
@@ -21,7 +19,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userPromise = getUser();
 
   return (
     <html
@@ -30,11 +27,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh]">
-        <AuthProvider userPromise={userPromise}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-          </ThemeProvider>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
