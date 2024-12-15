@@ -4,12 +4,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
-import { ToggleTheme } from "@/components/toggle-theme";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useApiService } from "@/lib/apiService";
 import { User } from "@/lib/types";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type LoginRequest = {
   email: string;
@@ -17,22 +16,31 @@ type LoginRequest = {
 }
 
 export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [apiResponse, createUser] = useApiService<User>();
+  const [signInRequest, signInFn] = useApiService<string>();
+  const [signUpRequest, signUpFn] = useApiService<User>();
 
-  const login = async () => createUser<LoginRequest>({ endpoint: "auth/login", body: { email, password } });
+  const signIn = async () => signInFn<LoginRequest>({ endpoint: "auth/login", body: { email, password } });
+  const signUp = async () => signUpFn<User>({ endpoint: "auth/createUser", body: { id: crypto.randomUUID(), email, password } });
 
   useEffect(() => {
-    if (apiResponse.data) {
-      console.log(apiResponse.data);
+    if (mode === "signin" && signInRequest.data) {
+      if(signInRequest.data === "no good") {
+        console.log("Sign in failed");
+      } else {
+        console.log("Sign in successful", signInRequest.data);  
+        router.push("/dashboard");
+      }
     }
-  }, [apiResponse]);
+  }, [signInRequest.data]);
 
   return (
     <div className="min-h-[100dvh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 ">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         <div className="flex justify-center items-center">
           <div className="p-8 sm:mx-auto sm:w-full sm:max-w-md rounded-lg bg-card">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -88,14 +96,17 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
             <div>
               <Button
                 type="button"
-                onClick={login}
+                onClick={mode === "signin" ? signIn : signUp}
                 className="mt-4 w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                {mode === "signin" ? (
-                  "Sign in"
-                ) : (
-                  "Sign up"
-                )}
+                {!signInRequest.pending && !signUpRequest.pending ?
+                  mode === "signin" ? (
+                    "Sign in"
+                  ) : (
+                    "Sign up"
+                  )
+                  : <><Loader2 /><p>loading...</p></>
+                }
               </Button>
             </div>
 
@@ -123,18 +134,13 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
                     : "Sign in to existing account"}
                 </Link>
               </div>
+
+              <div className="mt-3">
+                {signUpRequest.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signUpRequest.errorMessage}</div>}
+                {signInRequest.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signInRequest.errorMessage}</div>}
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <Image
-            alt="link-logo"
-            src={require("@/assets/images/policyLinkLogo.webp")}
-            width={1000}
-            height={1000}
-          />
-          <p>hi</p>
-          <ToggleTheme />
         </div>
       </div>
     </div>

@@ -1,8 +1,11 @@
 package auth
 
 import (
+	"errors"
+
 	"github.com/campbell-frost/policy-link-solutions/database"
 	"github.com/campbell-frost/policy-link-solutions/model"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type LoginRequest struct {
@@ -17,8 +20,15 @@ func login(request *LoginRequest) (string, error) {
 	}
 
 	user := model.User{}
+	result := db.Where("email = ?", request.Email).First(&user)
+	if result.Error != nil {
+		return "", errors.New(result.Error.Error())
+	}
 
-	db.Where("email = ?", request.Email).First(&user)
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(request.Password))
+	if err != nil {
+		return "", errors.New("invalid credentials")
+	}
 
 	return "dis is a token!", nil
 }

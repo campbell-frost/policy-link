@@ -21,7 +21,7 @@ async function sendApiRequest<T, R>(request: ApiRequest<T>): Promise<R> {
     
     if (!response.ok) {
       const errorData = await response.text();
-      throw new Error(errorData || `HTTP error! status: ${response.statusText}`);
+      throw new Error(errorData);
     }
     
     const data = await response.json();
