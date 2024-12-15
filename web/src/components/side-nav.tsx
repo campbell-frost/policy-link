@@ -16,7 +16,7 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar"
 
-import { ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, TriangleAlert, } from "lucide-react";
+import { ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, TriangleAlert, User2, } from "lucide-react";
 import Link from "next/link";
 import { ToggleTheme } from "./toggle-theme";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
@@ -50,6 +50,12 @@ const menuItems: MenuItem[] = [
         label: "Go API",
         icon: <GlassWater />,
       },
+      {
+        href: "/dashboard/userManagement",
+        label: "Users",
+        icon: <User2 />,
+      },
+      
     ]
   },
 ];
