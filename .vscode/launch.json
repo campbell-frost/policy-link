@@ -36,9 +36,9 @@
     {
       "name": "Debug Backend + Run Frontend",
       "configurations": [
-        "Debug Go API",
-        "Run Next.js Web Server",
         "Start Postgres Docker Container",
+        "Run Next.js Web Server",
+        "Debug Go API",
       ]
     }
   ],
