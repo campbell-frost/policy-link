@@ -24,7 +24,7 @@ type Policy struct {
 	LastApproved    *time.Time  `json:"lastApproved"`
 	LastRevised     *time.Time  `json:"lastRevised"`
 	NextReview      *time.Time  `json:"nextReview"`
-	OwnerId         uuid.UUID   `json:"ownerId"`
+	OwnerId         *uuid.UUID  `json:"ownerId"`
 	Area            *string     `json:"area"`
 	Signatures      []Signature `gorm:"foreignKey:PolicyID" json:"signatures"`
 }

@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <SidebarInset>
           <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
             <Header />
-            <div className="grid grid-rows-1 p-4">
+            <div className="grid grid-rows-1 p-5">
               {children}
             </div>
           </div>

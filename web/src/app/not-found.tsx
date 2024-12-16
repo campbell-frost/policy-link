@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 
 export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+    <div className="flex items-center justify-center min-h-screen bg-background p-5">
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex items-center justify-center space-x-4">

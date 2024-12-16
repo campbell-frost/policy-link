@@ -7,6 +7,7 @@ import (
 
 	"github.com/campbell-frost/policy-link-solutions/database"
 	"github.com/campbell-frost/policy-link-solutions/service/auth"
+	"github.com/campbell-frost/policy-link-solutions/service/policy"
 	"github.com/campbell-frost/policy-link-solutions/service/user"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
@@ -23,9 +24,12 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
 	db.AddAutoMigrations()
 
 	r := chi.NewRouter()
+
+	// CORS
 	r.Use(cors.Handler(cors.Options{
 		// AllowedOrigins:   []string{"https://foo.com"}, // Use this to allow specific origin hosts
 		AllowedOrigins: []string{"https://*", "http://*"},
@@ -36,8 +40,12 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
+
+	// Register routes
 	user.Register(r)
 	auth.Register(r)
+	policy.Register(r)
+
 	fmt.Println("Server running on port 1738.  I'm like hey what's up hello.")
 	log.Fatal(http.ListenAndServe(":1738", r))
 }

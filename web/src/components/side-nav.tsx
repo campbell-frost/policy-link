@@ -15,48 +15,51 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar"
+import { FaGolang } from "react-icons/fa6";
 
-import { ChevronRight, GlassWater, Home, LayoutDashboardIcon, LinkIcon, TriangleAlert, User2, } from "lucide-react";
+import { ChevronRight, FileSymlink, GlassWater, Home, LayoutDashboardIcon, LinkIcon, TriangleAlert, User2, } from "lucide-react";
 import Link from "next/link";
 import { ToggleTheme } from "./toggle-theme";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 
 type MenuItem = {
   label: string;
-  href: string;
+  href?: string;
   isActive?: boolean;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   children?: MenuItem[];
 }
 
 const menuItems: MenuItem[] = [
   {
-    label: "Home",
-    href: "/",
-    icon: <Home />,
-  },
-  {
-    label: "404",
-    href: "/bad-route",
-    icon: <TriangleAlert />,
-  },
-  {
     label: "Dashboard",
     href: "/dashboard",
     icon: <LayoutDashboardIcon />,
+    isActive: true,
+  },
+  {
+    label: "Policies",
+    icon: <FileSymlink />,
     children: [
       {
-        href: "/dashboard/goApi",
-        label: "Go API",
-        icon: <GlassWater />,
+        label: "All Policies",
+        href: "/dashboard/policies",
       },
       {
-        href: "/dashboard/userManagement",
-        label: "Users",
-        icon: <User2 />,
+        label: "Create Policy",
+        href: "/dashboard/createPolicy",
       },
-      
-    ]
+    ],
+  },
+  {
+    label: "GoApi",
+    href: "/dashboard/goApi",
+    icon: <FaGolang />,
+  },
+  {
+    label: "Users",
+    href: "/dashboard/users",
+    icon: <User2 />,
   },
 ];
 
@@ -89,10 +92,17 @@ export function Sidenav({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     ? (
                       <SidebarMenuItem >
                         <SidebarMenuButton asChild>
-                          <Link href={item.href}>
-                            {item.icon}
-                            {item.label}
-                          </Link>
+                          {item.href ? (
+                            <Link href={item.href}>
+                              {item.icon}
+                              {item.label}
+                            </Link>
+                          ) : (
+                            <div className="flex">
+                              <p>{item.icon}</p>
+                              <p>{item.label}</p>
+                            </div>
+                          )}
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     ) : (
