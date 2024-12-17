@@ -6,12 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useApiService } from "@/lib/apiService";
-import { UUID } from "crypto";
 import { useState } from "react";
 
 type PolicyForm = {
-  policyName: string;
-  purposeStatement: string;
+  name: string;
+  purpose: string;
   policyStatement: string;
   procedure: string;
 }
@@ -24,8 +23,8 @@ type CreatePolicyRequest = PolicyForm & {
 export default function Page() {
   const USER_ID_UNTIL_AUTH_WORKS = "812c7d3e-c9fc-4d56-a931-ce06c8128ab6";
   const [formData, setFormData] = useState<PolicyForm>({
-    policyName: "",
-    purposeStatement: "",
+    name: "",
+    purpose: "",
     policyStatement: "",
     procedure: ""
   });
@@ -53,10 +52,10 @@ export default function Page() {
       <div className="flex flex-col gap-2 w-full">
         <Label className="text-lg font-semibold">Policy Name</Label>
         <Input
-          name="policyName"
+          name="name"
           className="py-7 text-lg"
           placeholder="Enter policy name..."
-          value={formData.policyName}
+          value={formData.name}
           onChange={handleChange}
         />
       </div>
@@ -66,9 +65,9 @@ export default function Page() {
           <div className="flex flex-col gap-2">
             <Label className="text-lg font-semibold">Purpose Statement</Label>
             <Textarea
-              name="purposeStatement"
+              name="purpose"
               placeholder="Enter the purpose of this policy..."
-              value={formData.purposeStatement}
+              value={formData.purpose}
               onChange={handleChange}
             />
           </div>
