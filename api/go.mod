@@ -1,4 +1,4 @@
-module github.com/campbell-frost/policy-link-solutions
+module github.com/campbell-frost/policy-link
 
 go 1.22.5
 

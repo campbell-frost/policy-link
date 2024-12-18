@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/campbell-frost/policy-link-solutions/database"
-	"github.com/campbell-frost/policy-link-solutions/router"
+	"github.com/campbell-frost/policy-link/database"
+	"github.com/campbell-frost/policy-link/router"
 	"github.com/joho/godotenv"
 )
 

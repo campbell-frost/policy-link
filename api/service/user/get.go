@@ -1,8 +1,8 @@
 package user
 
 import (
-	"github.com/campbell-frost/policy-link-solutions/database"
-	"github.com/campbell-frost/policy-link-solutions/model"
+	"github.com/campbell-frost/policy-link/database"
+	"github.com/campbell-frost/policy-link/model"
 )
 
 func getUser(id string) (model.User, error) {

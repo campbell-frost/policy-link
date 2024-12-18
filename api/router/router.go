@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/campbell-frost/policy-link-solutions/database"
-	"github.com/campbell-frost/policy-link-solutions/model"
+	"github.com/campbell-frost/policy-link/database"
+	"github.com/campbell-frost/policy-link/model"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 )

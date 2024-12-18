@@ -1,6 +1,6 @@
 "use client"
 
-import { Login } from "./(login)/login";
+import { Login } from "./(auth)/auth";
 
 export default function HomePage() {
 

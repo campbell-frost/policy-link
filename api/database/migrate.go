@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/campbell-frost/policy-link-solutions/model"
+	"github.com/campbell-frost/policy-link/model"
 )
 
 func (db *DB) AddAutoMigrations() {

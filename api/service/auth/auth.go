@@ -5,8 +5,8 @@ import (
 	"encoding/base64"
 	"time"
 
-	"github.com/campbell-frost/policy-link-solutions/database"
-	"github.com/campbell-frost/policy-link-solutions/model"
+	"github.com/campbell-frost/policy-link/database"
+	"github.com/campbell-frost/policy-link/model"
 	"github.com/google/uuid"
 )
 

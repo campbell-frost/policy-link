@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/campbell-frost/policy-link-solutions/service"
+	"github.com/campbell-frost/policy-link/service"
 	"github.com/go-chi/chi/v5"
 )
 
