@@ -18,6 +18,17 @@
       "command": "pnpm dev"
     },
     {
+      "name": "Debug Next.js Web Server",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"],
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Start Postgres Docker Container",
       "type": "node-terminal",
       "request": "launch",
@@ -30,16 +41,16 @@
       "request": "launch",
       "url": "https://localhost:3000",
       "webRoot": "${workspaceFolder}/client"
-    },
+    }
   ],
   "compounds": [
     {
-      "name": "Debug Backend + Run Frontend",
+      "name": "Fullstack",
       "configurations": [
         "Start Postgres Docker Container",
         "Run Next.js Web Server",
-        "Debug Go API",
+        "Debug Go API"
       ]
     }
-  ],
+  ]
 }

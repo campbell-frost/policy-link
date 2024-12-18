@@ -1,7 +1,7 @@
 "use client"
 import { User } from "@/lib/types";
-import { useApiService } from "@/lib/apiService";
-import { use, useState } from "react";
+import { useApiService } from "@/hooks/api-service";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 
 export default function Page() {

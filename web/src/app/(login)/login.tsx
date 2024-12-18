@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import { useApiService } from "@/lib/apiService";
-import { User } from "@/lib/types";
+import { useApiService } from "@/hooks/api-service";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/auth-context";
@@ -18,25 +17,47 @@ type SignInRequest = {
 
 type SignUpRequest = SignInRequest
 
+type Token = string;
+
 export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   const router = useRouter();
-  const auth = useAuth();
+  const { token, setToken } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signInResponse, signInFn] = useApiService<string>();
-  const [signUpResponse, signUpFn] = useApiService<User>();
+  const [signInResponse, signInFn] = useApiService<Token>();
+  const [signUpResponse, signUpFn] = useApiService<Token>();
 
-  const signIn = async () => signInFn<SignInRequest>({ endpoint: "auth/login", body: { email, password } });
-  const signUp = async () => signUpFn<SignUpRequest>({ endpoint: "auth/createUser", body: { email, password } });
+  const signIn = async () => {
+    signInFn<SignInRequest>(
+      {
+        endpoint: "auth/signIn",
+        body: { email, password },
+        token: token || ''
+      }
+    );
+  };
+
+  const signUp = async () => {
+    signUpFn<SignUpRequest>(
+      {
+        endpoint: "auth/signUp",
+        body: { email, password },
+        token: "signUp",
+      }
+    );
+  };
 
   useEffect(() => {
-    // if context has auth token, redirect to dashboard
-    // once the user signs in, set the authToken in the context to be equal to their authToken from the db
-    // mutable context 
-
-  }, [signInResponse.data]);
+    if (signInResponse.data) {
+      setToken(signInResponse.data);
+      router.push('/dashboard');
+    } else if (signUpResponse.data) {
+      setToken(signUpResponse.data);
+      router.push('/dashboard');
+    }
+  }, [signInResponse.data, signUpResponse.data, setToken, router]);
 
   return (
     <div className="min-h-[100dvh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 ">

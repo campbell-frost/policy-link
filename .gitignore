@@ -1,2 +1,3 @@
 .debug
 .vscode/settings.json
+/api/secrets/*

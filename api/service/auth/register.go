@@ -6,6 +6,6 @@ import (
 )
 
 func Register(r chi.Router) {
-	r.Post("/auth/login", service.RpcHandler(login))
-	r.Post("/auth/createUser", service.RpcHandler(createUser))
+	r.Post("/auth/signIn", service.RpcHandler(signIn))
+	r.Post("/auth/signUp", service.RpcHandler(signUp))
 }

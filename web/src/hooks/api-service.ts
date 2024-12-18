@@ -2,7 +2,6 @@
 
 import { config } from "dotenv";
 import { useState } from "react";
-import { useAuth } from "./auth-context";
 
 type ApiRequest<T> = {
   endpoint: string;

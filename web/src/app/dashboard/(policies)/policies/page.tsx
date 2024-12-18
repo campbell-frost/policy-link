@@ -1,6 +1,6 @@
 "use client";
 
-import { useApiService } from "@/lib/apiService";
+import { useApiService } from "@/hooks/api-service";
 import { Policy } from "@/lib/types";
 import { useEffect } from "react";
 

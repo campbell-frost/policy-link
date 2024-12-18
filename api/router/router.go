@@ -45,6 +45,12 @@ func authMiddleware(next http.Handler) http.Handler {
 
 		token = token[7:]
 
+		// if the user is creating a new account, allow them to do so
+		if token == "signUp" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		// Check if token is valid
 		db, err := database.Connect()
 		if err != nil {
