@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { ThemeProvider } from "next-themes";
+import { AuthProvider, useAuth } from '@/hooks/auth-context';
 
 export const metadata: Metadata = {
   title: 'Policy Link Solutions',
@@ -27,9 +28,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh]">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
+        <AuthProvider >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

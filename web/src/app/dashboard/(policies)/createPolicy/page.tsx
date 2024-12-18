@@ -17,11 +17,12 @@ type PolicyForm = {
 
 type CreatePolicyRequest = PolicyForm & {
   userId: string;
-  id: string;
 };
 
 export default function Page() {
   const USER_ID_UNTIL_AUTH_WORKS = "812c7d3e-c9fc-4d56-a931-ce06c8128ab6";
+
+
   const [formData, setFormData] = useState<PolicyForm>({
     name: "",
     purpose: "",
@@ -42,22 +43,22 @@ export default function Page() {
       body: {
         ...formData,
         userId: USER_ID_UNTIL_AUTH_WORKS,
-        id: crypto.randomUUID()
       }
     });
   };
 
   return (
     <div className="flex flex-col items-start w-full">
-      <div className="flex flex-col gap-2 w-full">
-        <Label className="text-lg font-semibold">Policy Name</Label>
-        <Input
-          name="name"
-          className="py-7 text-lg"
-          placeholder="Enter policy name..."
-          value={formData.name}
-          onChange={handleChange}
-        />
+      <div className="flex justify-between items-center ">
+        <div className="flex flex-col">
+          <Label className="text-lg font-semibold mb-2">Policy Name</Label>
+          <Input
+            name="name"
+            className="py-7 text-lg"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <Separator className="my-5" />
       <div className="w-full flex flex-col gap-5">
@@ -66,7 +67,6 @@ export default function Page() {
             <Label className="text-lg font-semibold">Purpose Statement</Label>
             <Textarea
               name="purpose"
-              placeholder="Enter the purpose of this policy..."
               value={formData.purpose}
               onChange={handleChange}
             />
@@ -75,7 +75,6 @@ export default function Page() {
             <Label className="text-lg font-semibold">Policy Statement</Label>
             <Textarea
               name="policyStatement"
-              placeholder="Enter the policy statement..."
               value={formData.policyStatement}
               onChange={handleChange}
             />
@@ -85,7 +84,6 @@ export default function Page() {
           <Label className="text-lg font-semibold">Procedure</Label>
           <Textarea
             name="procedure"
-            placeholder="Enter the procedure details..."
             value={formData.procedure}
             onChange={handleChange}
           />

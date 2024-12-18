@@ -13,22 +13,22 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
-func login(request *LoginRequest) (string, error) {
+func login(req *LoginRequest) (string, error) {
 	db, err := database.Connect()
 	if err != nil {
 		return "", err
 	}
 
 	user := model.User{}
-	result := db.Where("email = ?", request.Email).First(&user)
+	result := db.Where("email = ?", req.Email).First(&user)
 	if result.Error != nil {
 		return "", errors.New(result.Error.Error())
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(request.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password))
 	if err != nil {
 		return "", errors.New("invalid credentials")
 	}
 
-	return "dis is a token!", nil
+	return makeSession(user.ID)
 }

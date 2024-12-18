@@ -30,7 +30,7 @@ export type User = {
 export type Session = {
   id: string;
   token: string;
-  expiresAt: number;
+  expiresAt: string;
 } | null;
 
 export type Signature = {

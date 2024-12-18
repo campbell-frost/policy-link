@@ -9,34 +9,34 @@ import { useApiService } from "@/lib/apiService";
 import { User } from "@/lib/types";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/auth-context";
 
-type LoginRequest = {
+type SignInRequest = {
   email: string;
   password: string;
 }
 
+type SignUpRequest = SignInRequest
+
 export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   const router = useRouter();
+  const auth = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signInRequest, signInFn] = useApiService<string>();
-  const [signUpRequest, signUpFn] = useApiService<User>();
+  const [signInResponse, signInFn] = useApiService<string>();
+  const [signUpResponse, signUpFn] = useApiService<User>();
 
-  const signIn = async () => signInFn<LoginRequest>({ endpoint: "auth/login", body: { email, password } });
-  const signUp = async () => signUpFn<User>({ endpoint: "auth/createUser", body: { id: crypto.randomUUID(), email, password } });
+  const signIn = async () => signInFn<SignInRequest>({ endpoint: "auth/login", body: { email, password } });
+  const signUp = async () => signUpFn<SignUpRequest>({ endpoint: "auth/createUser", body: { email, password } });
 
   useEffect(() => {
-    if (mode === "signin" && signInRequest.data) {
-      if(signInRequest.data === "no good") {
-        console.log("Sign in failed");
-      } else {
-        console.log("Sign in successful", signInRequest.data);  
-        router.push("/dashboard");
-      }
-    }
-  }, [signInRequest.data]);
+    // if context has auth token, redirect to dashboard
+    // once the user signs in, set the authToken in the context to be equal to their authToken from the db
+    // mutable context 
+
+  }, [signInResponse.data]);
 
   return (
     <div className="min-h-[100dvh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 ">
@@ -99,7 +99,7 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
                 onClick={mode === "signin" ? signIn : signUp}
                 className="mt-4 w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                {!signInRequest.pending && !signUpRequest.pending ?
+                {!signInResponse.pending && !signUpResponse.pending ?
                   mode === "signin" ? (
                     "Sign in"
                   ) : (
@@ -136,8 +136,8 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
               </div>
 
               <div className="mt-3">
-                {signUpRequest.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signUpRequest.errorMessage}</div>}
-                {signInRequest.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signInRequest.errorMessage}</div>}
+                {signUpResponse.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signUpResponse.errorMessage}</div>}
+                {signInResponse.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signInResponse.errorMessage}</div>}
               </div>
             </div>
           </div>
