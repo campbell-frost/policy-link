@@ -1,0 +1,27 @@
+# fly.toml app configuration file generated for policy-link-api on 2024-12-17T20:58:18-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'policy-link-api'
+primary_region = 'iad'
+
+[build]
+  [build.args]
+    GO_VERSION = '1.22.5'
+
+[env]
+  PORT = '8080'
+
+[http_service]
+  internal_port = 1738
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
