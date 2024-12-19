@@ -1,6 +1,5 @@
 "use client"
 
-import { config } from "dotenv";
 import { useState } from "react";
 
 type ApiRequest<T> = {
@@ -10,8 +9,7 @@ type ApiRequest<T> = {
   token?: string;
 }
 
-config();
-const API_BASE_URL = process.env.POLICY_LINK_API || "http://localhost:1738/";
+const API_BASE_URL = process.env.POLICY_LINK_API!;
 
 async function sendApiRequest<T, R>(request: ApiRequest<T>): Promise<R> {
   try {
