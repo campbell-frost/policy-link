@@ -22,7 +22,7 @@ export default function Page() {
         ))}
       </ul>
       {policies.pending && <p>Loading...</p>}
-      {policies.error && <p>Error: {policies.errorMessage}</p>}
+      {policies.error && <p>Something went wrong: {policies.errorMessage}</p>}
     </div>
   );
 }

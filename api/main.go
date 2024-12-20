@@ -7,9 +7,15 @@ import (
 
 	"github.com/campbell-frost/policy-link/database"
 	"github.com/campbell-frost/policy-link/router"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
 	db, err := database.Connect()
 	if err != nil {
 		log.Fatalln(err)

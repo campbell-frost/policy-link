@@ -21,3 +21,4 @@ node_modules
 .yarn/install-state.gz
 next-env.d.ts
 build/
+.secrets

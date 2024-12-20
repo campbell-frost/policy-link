@@ -32,7 +32,7 @@
       "name": "Start Postgres Docker Container",
       "type": "node-terminal",
       "request": "launch",
-      "command": "docker start policy-link",
+      "command": "docker start policy-link-db",
       "postDebugTask": "docker-stop"
     },
     {

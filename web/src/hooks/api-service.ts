@@ -21,16 +21,16 @@ async function sendApiRequest<T, R>(request: ApiRequest<T>): Promise<R> {
       },
       body: request.body ? JSON.stringify(request.body) : JSON.stringify({}),
     });
-    
+
     if (!response.ok) {
       const errorData = await response.text();
       throw new Error(errorData);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(`${error.message}`);
   }
 }
 
@@ -57,7 +57,7 @@ function useApiService<T>() {
 
     try {
       const result = await sendApiRequest<B, T>(request);
-      
+     
       setData({
         data: result,
         errorMessage: null,
@@ -74,7 +74,7 @@ function useApiService<T>() {
         pending: false
       });
 
-      throw error;
+      return;
     }
   };
 
