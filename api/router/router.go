@@ -34,7 +34,7 @@ func useCors(r chi.Router) {
 }
 
 var whiteListedPaths = map[string]bool{
-	"/createUser": true,
+	"/auth/signUp": true,
 }
 
 func isWhiteListed(path string) bool {

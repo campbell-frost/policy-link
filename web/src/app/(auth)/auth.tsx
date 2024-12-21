@@ -22,7 +22,7 @@ type Token = string;
 
 export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   const router = useRouter();
-  const { token, setToken } = useAuth();
+  const { setToken } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +35,6 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
       {
         endpoint: "auth/signIn",
         body: { email, password },
-        token: token || ''
       }
     );
   };
@@ -45,7 +44,6 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
       {
         endpoint: "auth/signUp",
         body: { email, password },
-        token: "signUp",
       }
     );
   };
