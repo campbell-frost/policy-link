@@ -34,34 +34,32 @@ async function sendApiRequest<T, R>(request: ApiRequest<T>): Promise<R> {
   }
 }
 
+type ApiServiceResponse<T> = {
+  data: T | null;
+  error: Error | null;
+  pending: boolean;
+}
+
 function useApiService<T>() {
-  const [data, setData] = useState<{
-    data: T | null;
-    error: boolean;
-    errorMessage: string | null;
-    pending: boolean;
-  }>({
+  const [data, setData] = useState<ApiServiceResponse<T>>({
     data: null,
-    error: false,
-    errorMessage: null,
+    error: null,
     pending: false
   });
 
   const fetchData = async <B>(request: ApiRequest<B>) => {
     setData(() => ({
       data: null,
-      error: false,
-      errorMessage: null,
+      error: null,
       pending: true
     }));
 
     try {
       const result = await sendApiRequest<B, T>(request);
-     
+
       setData({
         data: result,
-        errorMessage: null,
-        error: false,
+        error: null,
         pending: false
       });
 
@@ -69,8 +67,7 @@ function useApiService<T>() {
     } catch (error: any) {
       setData({
         data: null,
-        error: true,
-        errorMessage: error.message,
+        error: error,
         pending: false
       });
 

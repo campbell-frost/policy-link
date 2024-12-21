@@ -33,8 +33,22 @@ func useCors(r chi.Router) {
 	}))
 }
 
+var whiteListedPaths = map[string]bool{
+	"/createUser": true,
+}
+
+func isWhiteListed(path string) bool {
+	_, ok := whiteListedPaths[path]
+	return ok
+}
+
 func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if isWhiteListed(r.URL.Path) {
+			next.ServeHTTP(w, r)
+			return
+		}
+
 		token := r.Header.Get("Authorization")
 
 		if len(token) < 7 || token[:7] != "Bearer " {
@@ -43,12 +57,6 @@ func authMiddleware(next http.Handler) http.Handler {
 		}
 
 		token = token[7:]
-
-		// if the user is creating a new account, allow them to do so
-		if token == "signUp" {
-			next.ServeHTTP(w, r)
-			return
-		}
 
 		// Check if token is valid
 		db, err := database.Connect()

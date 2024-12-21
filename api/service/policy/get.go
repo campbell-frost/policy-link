@@ -22,5 +22,5 @@ func get(req *GetRequest) (model.Policy, error) {
 		return model.Policy{}, result.Error
 	}
 
-	return model.Policy{}, nil
+	return policy, nil
 }

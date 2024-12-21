@@ -9,6 +9,7 @@ import { useApiService } from "@/hooks/api-service";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/auth-context";
+import { ErrorChip } from "@/components/error-chip";
 
 type SignInRequest = {
   email: string;
@@ -157,8 +158,8 @@ export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
               </div>
 
               <div className="mt-3">
-                {signUpResponse.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signUpResponse.errorMessage}</div>}
-                {signInResponse.error && <div className="bg-muted border border-red-400 text-foreground p-4 rounded-lg">{signInResponse.errorMessage}</div>}
+                {signInResponse.error && <ErrorChip error={signInResponse.error} />}
+                {signUpResponse.error && <ErrorChip error={signUpResponse.error} />}
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { ErrorChip } from "@/components/error-chip";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +22,6 @@ type CreatePolicyRequest = PolicyForm & {
 
 export default function Page() {
   const USER_ID_UNTIL_AUTH_WORKS = "812c7d3e-c9fc-4d56-a931-ce06c8128ab6";
-
 
   const [formData, setFormData] = useState<PolicyForm>({
     name: "",
@@ -90,7 +90,7 @@ export default function Page() {
         </div>
       </div>
       <Button variant={"default"} className="mt-5" onClick={createPolicy}>Create</Button>
-      {createPolicyResponse.error && <p>{createPolicyResponse.error}</p>}
+      {createPolicyResponse.error && <p><ErrorChip error={createPolicyResponse.error} /></p>}
       {createPolicyResponse.data! && <p>{JSON.stringify(createPolicyResponse?.data)}</p>}
       {createPolicyResponse.pending && <p>Loading...</p>}
     </div>

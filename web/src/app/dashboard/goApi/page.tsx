@@ -3,6 +3,7 @@ import { User } from "@/lib/types";
 import { useApiService } from "@/hooks/api-service";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { ErrorChip } from "@/components/error-chip";
 
 export default function Page() {
   const [users, fetchUsers] = useApiService<User[]>();
@@ -33,7 +34,7 @@ export default function Page() {
             value={uuid}
             onChange={(e) => setUuid(e.target.value)}
           />
-          {user.error && <p className="text-red-500 p-3 bg-muted rounded-lg">{user.errorMessage}</p>}
+          {user.error && <ErrorChip error={user.error} />}
           {user.pending && <p className="text-gray-500">Loading...</p>}
           {user.data && (
             <div className="p-3 bg-muted rounded-lg">
@@ -52,7 +53,7 @@ export default function Page() {
               Get Users
             </button>
           </div>
-          {users.error && <p className="text-red-500 p-3 bg-muted rounded-lg">{users.errorMessage}</p>}
+          {users.error && <ErrorChip error={users.error} />}
           {users.pending && <p className="text-gray-500">Loading...</p>}
           {users.data && (
             <div className="space-y-3">

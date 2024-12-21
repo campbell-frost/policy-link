@@ -1,5 +1,6 @@
 "use client";
 
+import { ErrorChip } from "@/components/error-chip";
 import { useApiService } from "@/hooks/api-service";
 import { Policy } from "@/lib/types";
 import { useEffect } from "react";
@@ -15,14 +16,14 @@ export default function Page() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-     <p>Policies</p>
+      <p>Policies</p>
       <ul>
         {policies.data?.map((policy, i) => (
           <li key={i}>{policy?.id}</li>
         ))}
       </ul>
       {policies.pending && <p>Loading...</p>}
-      {policies.error && <p>Something went wrong: {policies.errorMessage}</p>}
+      {policies.error && <ErrorChip error={policies.error} />}
     </div>
   );
 }

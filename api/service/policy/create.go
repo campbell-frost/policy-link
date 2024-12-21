@@ -3,6 +3,7 @@ package policy
 import (
 	"github.com/campbell-frost/policy-link/database"
 	"github.com/campbell-frost/policy-link/model"
+	"github.com/google/uuid"
 )
 
 func create(req *model.Policy) (model.Nothing, error) {
@@ -10,6 +11,8 @@ func create(req *model.Policy) (model.Nothing, error) {
 	if err != nil {
 		return model.Nothing{}, err
 	}
+
+	req.ID = uuid.New()
 
 	result := db.Create(req)
 	if result.Error != nil {
