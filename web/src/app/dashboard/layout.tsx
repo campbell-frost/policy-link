@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Sidenav } from '@/components/side-nav';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { UserProfile } from '@/components/user-profile';
 
 function Header() {
   return (
@@ -11,9 +12,7 @@ function Header() {
       <div className="w-full px-4 sm:px-6 lg:px-8 py-[.62rem] flex justify-end items-center">
         <div className="flex items-center space-x-4 ">
           <Link href="/sign-in">
-            <Button>
-              <p>Auth</p>
-            </Button>
+            <UserProfile />
           </Link>
         </div>
       </div>
