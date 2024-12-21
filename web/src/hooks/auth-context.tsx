@@ -34,40 +34,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(false);
   }, []);
 
-  type FetchUserRequest = {
-    token: string;
-  }
-
-  type FetchUserResponse = {
-    id: string;
-    email: string;
-    password: string;
-    token?: string;
-  }
-
-  const fetchUser = async (req: FetchUserRequest): Promise<FetchUserResponse> => {
-    try {
-      const response = await fetch(`${process.env.POLICY_LINK_API!}auth/getUser`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ token: req.token }),
-        });
-
-      if (!response.ok) {
-        throw new Error("oops");
-      }
-      const json: FetchUserResponse = await response.json();
-      return json;
-    } catch (error: any) {
-      console.log(error)
-      throw new Error(`AHAHKAJKL: ${error.message}`)
-    }
-  }
-
   // const [_, fn] = useApiService<User>()
   // const hi = async () => await fn({ endpoint: "auth/getUser", body: { token } })
 
@@ -105,4 +71,38 @@ export function useAuth() {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
+}
+
+type FetchUserRequest = {
+  token: string;
+}
+
+type FetchUserResponse = {
+  id: string;
+  email: string;
+  password: string;
+  token?: string;
+}
+
+const fetchUser = async (req: FetchUserRequest): Promise<FetchUserResponse> => {
+  try {
+    const response = await fetch(`${process.env.POLICY_LINK_API!}auth/getUser`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${req.token}`,
+        },
+        body: JSON.stringify({ token: req.token }),
+      });
+
+    if (!response.ok) {
+      throw new Error("oops");
+    }
+    const json: FetchUserResponse = await response.json();
+    return json;
+  } catch (error: any) {
+    console.error(error)
+    throw new Error(`AHAHKAJKL: ${error.message}`)
+  }
 }

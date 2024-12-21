@@ -22,7 +22,8 @@ type Token = string;
 
 export function Login({ mode = "signin" }: { mode?: "signin" | "signup" }) {
   const router = useRouter();
-  const { setToken } = useAuth();
+  const { setToken, user } = useAuth();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -28,7 +28,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-[100dvh]">
-        <AuthProvider >
+        <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
