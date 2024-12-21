@@ -1,7 +1,7 @@
 "use client";
 
-import { ErrorChip } from "@/components/error-chip";
-import { Button } from "@/components/ui/button";
+import { PolicyTable } from "@/components/policy-table";
+
 import { useApiService } from "@/hooks/api-service";
 import { useAuth } from "@/hooks/auth-context";
 import { Policy } from "@/lib/types";
@@ -14,25 +14,20 @@ export default function Page() {
   useEffect(() => {
     if (!loading) {
       (async () => {
-        await fetchPolicies();
+        await fetchPoliciesFn({ endpoint: "listPolicies" });
       })();
     }
   }, [loading]);
 
-  const fetchPolicies = async () => {
-    await fetchPoliciesFn({ endpoint: "listPolicies" });
-  }
-
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-5">Policies</h1>
-      <ul>
-        {policies.data?.map((policy, i) => (
-          <li key={i}>{policy?.id}</li>
-        ))}
-      </ul>
-      {policies.pending && <p>Loading...</p>}
-      {policies.error && <ErrorChip error={policies.error} className="mt-4" />}
+      <PolicyTable props={
+        {
+          policies: policies.data,
+          error: policies.error,
+          loading,
+        }} />
     </div>
   );
 }
+
