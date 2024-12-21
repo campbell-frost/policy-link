@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { ThemeProvider } from "next-themes";
-import { AuthProvider, useAuth } from '@/hooks/auth-context';
+import { AuthProvider } from '@/hooks/auth-context';
 
 export const metadata: Metadata = {
   title: 'Policy Link Solutions',
