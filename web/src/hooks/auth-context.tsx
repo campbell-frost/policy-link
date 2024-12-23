@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useApiService } from './api-service';
 
 type Token = string | null;
 
@@ -103,6 +102,6 @@ const fetchUser = async (req: FetchUserRequest): Promise<FetchUserResponse> => {
     return json;
   } catch (error: any) {
     console.error(error)
-    throw new Error(`AHAHKAJKL: ${error.message}`)
+    throw new Error(`Something went wrong fetching user info: ${error.message}`)
   }
 }

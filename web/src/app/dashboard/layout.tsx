@@ -10,7 +10,7 @@ function Header() {
   return (
     <header className="border-b-[1px] border-border shrink-0 ">
       <div className="w-full px-4 sm:px-6 lg:px-8 py-[.62rem] flex justify-end items-center">
-        <div className="flex items-center space-x-4 ">
+        <div className="flex items-center space-x-4">
           <Link href="/sign-in">
             <UserProfile />
           </Link>
