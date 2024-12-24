@@ -1,16 +1,17 @@
 "use client";
 
-import react from "react";
+import react, { useEffect } from "react";
 import { Separator } from '@/components/ui/separator';
 import { Button } from "@/components/ui/button";
 import { Input } from '@/components/ui/input';
 import { defineStepper } from "@stepperize/react"
-import { Textarea } from '@/components/ui/textarea';
 import { CreatePolicyProvider, usePolicyContext } from "@/hooks/create-policy-context";
 import { useApiService } from "@/hooks/api-service";
 import { Policy } from "@/lib/types";
 import { useAuth } from "@/hooks/auth-context";
 import { ErrorChip } from "@/components/error-chip";
+import { useQuill } from 'react-quilljs';
+import 'quill/dist/quill.bubble.css';
 
 const { useStepper, steps } = defineStepper(
   {
@@ -25,7 +26,6 @@ const { useStepper, steps } = defineStepper(
   },
   { id: 'complete', title: 'Complete', description: 'Checkout complete' }
 );
-
 
 export default function Page() {
   const stepper = useStepper();
@@ -106,7 +106,6 @@ export default function Page() {
   );
 }
 
-
 function About() {
   const { policyState, setPolicyState } = usePolicyContext();
   return (
@@ -137,29 +136,31 @@ function About() {
       </div>
     </div>
   );
-};
+}
 
 function Procedure() {
+  const { quill, quillRef } = useQuill({ theme: 'bubble'});
   const { policyState, setPolicyState } = usePolicyContext();
+  
+  useEffect(() => {
+    if (quill) {
+      quill.on('text-change', () => {
+        setPolicyState({ ...policyState!, procedure: quill.root.innerHTML });
+      });
+    }
+  }, [quill, policyState, setPolicyState]);
+
   return (
-    <div className="grid gap-4">
-      <div className="grid gap-2">
-        <Textarea
-          id="procedure"
-          placeholder="Policy procedure"
-          className="w-full"
-          value={policyState?.procedure}
-          onChange={(e) => setPolicyState({ ...policyState!, procedure: e.target.value })}
-        />
-      </div>
+    <div className="flex justify-center min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-md">
+      <div ref={quillRef} id="procedure" className="w-full" />
     </div>
   );
-};
+}
 
 type CreatePolicyRequest = Policy;
 
 function Complete() {
-  const { policyState, setPolicyState} = usePolicyContext();
+  const { policyState, setPolicyState } = usePolicyContext();
   const { user } = useAuth();
   const [createPolicyResponse, createPolicyFn] = useApiService();
 
@@ -167,7 +168,6 @@ function Complete() {
     setPolicyState({ ...policyState!, userId: user?.id! });
     console.log(policyState, typeof policyState);
     createPolicyFn<CreatePolicyRequest>({
-      
       endpoint: "createPolicy",
       body: policyState,
     });
@@ -186,7 +186,7 @@ function Complete() {
 function PolicyState() {
   const { policyState } = usePolicyContext();
   return (
-    <pre className="flex justify-center">
+    <pre className="flex justify-center max-w-full overflow-x-auto " style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
       {JSON.stringify(policyState!, null, 2)}
     </pre>
   );

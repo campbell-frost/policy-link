@@ -77,7 +77,7 @@ export function Sidenav({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <LinkIcon />
               <Link href="/">
                 <div className="flex flex-col">
-                  <h1 className="text-xl truncate">Policy-Link Solutions</h1>
+                  <h1 className="text-xl truncate">Policy-Link</h1>
                 </div>
               </Link>
             </SidebarMenuButton>
