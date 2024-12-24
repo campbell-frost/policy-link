@@ -49,7 +49,8 @@
       "configurations": [
         "Start Postgres Docker Container",
         "Run Next.js Web Server",
-        "Debug Go API"
+        "Debug Go API",
+        "Launch Firefox"
       ]
     }
   ]

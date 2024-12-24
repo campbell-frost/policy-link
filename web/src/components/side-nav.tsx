@@ -49,6 +49,10 @@ const menuItems: MenuItem[] = [
         label: "Create Policy",
         href: "/dashboard/createPolicy",
       },
+      {
+        label: "Create Policy Stepper",
+        href: "/dashboard/createPolicyStepper",
+      }
     ],
   },
   {

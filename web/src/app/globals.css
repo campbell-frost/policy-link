@@ -47,8 +47,9 @@
     --input: 231 5% 26%;
     --primary: 60 30% 96%;
     --primary-foreground: 60 30% 16%;
-    --secondary: 60 20% 25%;
-    --secondary-foreground: 60 20% 85%;
+    --yerr: 231 15% 26%;
+    --secondary: 231 15% 90%;
+    --secondary-foreground: 60 20% 15%;
     --accent: 231 15% 33%;
     --accent-foreground: 231 15% 93%;
     --destructive: 7 81% 55%;
